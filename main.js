@@ -1,10 +1,12 @@
 'use strict'
 import './style.css'
 import * as THREE from 'three';
+import { Scene } from 'three';
 
 function main(){
   const canvas = document.querySelector('#canvas');
   const renderer = new THREE.WebGLRenderer({canvas});
+  renderer.setPixelRatio(window.devicePixelRatio);
   const fov = 75;
   const aspect = 2;  // the canvas default
   const near = 0.1;
@@ -19,6 +21,9 @@ function main(){
   const material = new THREE.MeshBasicMaterial({color: 0x44aa88});
   const cube = new THREE.Mesh(geometry, material);
   scene.add(cube);
+  const light = new THREE.DirectionalLight(0xFFFFFF, 1);
+  light.position.set(-1,2,4);
+  scene.add(light);
   renderer.render(scene, camera);
   function render(time) {
     time *= 0.001;  // convert time to seconds
